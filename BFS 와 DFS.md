@@ -103,7 +103,7 @@ while queue:
 print(maze[n-1][m-1])
 ```    
 > 함수를 사용한다면 이렇게 풀 수도 있다.
-> 
+
 
 ``` python
 from collections import deque
@@ -184,4 +184,61 @@ for i in range(n):
             result += 1
 
 print(result)
+```
+
+
+## 'DFS와 BFS' 소스 코드
+https://www.acmicpc.net/problem/1260
+
+너비우선탐색과 깊이우선탐색 둘 다 시도하는 문제
+```python
+from collections import deque
+import sys
+input = sys.stdin.readline
+
+def bfs(x):
+    answer = [x]
+    
+    visited = [0] * (n+1)
+    visited[x] = 1
+    queue = deque([x])
+    
+    while queue:
+        x = queue.popleft()
+        for i in edge[x]:
+            if not visited[i]:
+                visited[i] = 1
+                queue.append(i)
+                answer.append(i)
+                
+    return answer
+            
+            
+def dfs(x):
+    if visited[x]:
+        return False
+    
+    visited[x] = 1
+    answer.append(x)
+    for i in edge[x]:
+        dfs(i)
+            
+
+n, m, v = map(int, input().split())
+edge = [[] for _ in range(n+1)]
+for i in range(m):
+    a, b = map(int, input().split())
+    edge[a].append(b)
+    edge[b].append(a)
+    
+    
+for i in edge:
+    i.sort()
+    
+answer = []
+visited = [0] * (n+1)
+dfs(v)
+print(*answer)
+
+print(*bfs(v))
 ```
