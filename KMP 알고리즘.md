@@ -1,22 +1,43 @@
-소스코드 예시
-수정 예정
+문자열과 패턴(서브 문자열)이 있을 때 문자열 안에서 패턴이 존재하는지 알아내는 알고리즘.
+시간 복잡도는 O(n)이다.
 
 ``` python
-def KMP(P,T):
-    ans=[]
-    lt=len(T)
-    lp=len(P)
-    table=makeTable(P)
-    i=0
-    for j in range(lt):
-        while i>0 and P[i]!=T[j]:
-            i=table[i-1]
-        if P[i]==T[j]:
-            if i==lp-1:
-                ans.append(j-lp+2)
-                i=table[i]
+def get_pi(pattern):
+    pi = [0] * len(pattern)
+    idx = 0
+    
+    for i in range(1, len(pattern)):
+        while idx > 0 and pattern[i] != pattern[idx]:
+            idx = pi[idx - 1]
+            
+        if pattern[i] == pattern[idx]:
+            idx += 1
+            pi[i] = idx
+            
+    return pi
+
+# get_pi 함수는 패턴의 길이만큼 접미사가 일치하는 최대 개수를 반환한다.
+# 예를 들어, 패턴이 abacaba 라면 pi = [0, 0, 1, 0, 1, 2, 3]이 된다.
+
+
+
+def kmp(s, pattern):  # 패턴 파악. s는 문자열이다.
+    n = len(s)
+    m = len(pattern)
+    
+    pi = get_pi(pattern)
+    idx = 0
+    for i in range(n):
+        while idx > 0 and s[i] != pattern[idx]:
+            idx = pi[idx - 1]
+            
+        if s[i] == pattern[idx]:
+            if idx == m - 1:
+                return True
             else:
-                i+=1
-    return ans
+                idx += 1
+                
+    return False
+
 ```
 
