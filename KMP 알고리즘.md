@@ -28,7 +28,7 @@ def get_pi(pattern):
 # 0...abac
 # 1...abaca
 # 2...abacab
-# 3...
+# 3...abacaba
 
 
 
