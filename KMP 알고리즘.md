@@ -52,3 +52,30 @@ def kmp(s, pattern):  # 패턴 파악. s는 문자열이다.
 
 ```
 
+
+
+kmp 함수를 조금 수정하면 패턴이 몇 번 나타나고, 나타나는 위치가 어디인지 알아낼 수 있다.
+
+``` python
+def kmp(s, pattern):
+    n = len(s)
+    m = len(pattern)
+    
+    pi = get_pi(pattern)
+    idx = 0
+    lst = []
+    
+    for i in range(n):
+        while idx > 0 and s[i] != pattern[idx]:
+            idx = pi[idx - 1]
+            
+        if s[i] == pattern[idx]:
+            if idx == m - 1:
+                results.append(idx - m + 2)
+                idx = pi[idx]
+            else:
+                idx += 1
+                
+    return lst  # 패턴이 시작되는 인덱스가 담겨있다. 그리고 lst의 길이는 곧 패턴의 등장 횟수이다.
+
+```
