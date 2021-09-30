@@ -75,7 +75,7 @@ def kmp(s, pattern):
             
         if s[i] == pattern[idx]:
             if idx == m - 1:
-                results.append(idx - m + 2)
+                lst.append(idx - m + 2)
                 idx = pi[idx]
             else:
                 idx += 1
