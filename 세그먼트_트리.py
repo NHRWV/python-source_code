@@ -1,7 +1,7 @@
 import sys
 # input = lambda: sys.stdin.readline().rstrip()
 
-inf = float('inf')
+inf = int(1e9)
 
 class SegmentTree:
     def __init__(self, data, default=10**15, func=lambda a, b: max(a,b)):
@@ -13,6 +13,7 @@ class SegmentTree:
  
         self.data = [default] * (2 * _size)
         self.data[_size:_size + self._len] = data
+        
         for i in reversed(range(_size)):
             self.data[i] = func(self.data[i + i], self.data[i + i + 1])
  
@@ -26,6 +27,7 @@ class SegmentTree:
         idx += self._size
         self.data[idx] = value
         idx >>= 1
+        
         while idx:
             self.data[idx] = self._func(self.data[2 * idx], self.data[2 * idx + 1])
             idx >>= 1
@@ -36,6 +38,7 @@ class SegmentTree:
     def query(self, start, stop):
         if start == stop:
             return self.__getitem__(start)
+        
         stop += 1
         start += self._size
         stop += self._size
@@ -55,11 +58,13 @@ class SegmentTree:
     def __repr__(self):
         return "SegmentTree({0})".format(self.data)
     
-n, m = map(int, input().split())
-li = [int(input()) for _ in range(n)]
+    
+    
+n, m = map(int, input().split()) # n : 배열 길이, m : 쿼리 수 
+lst = [int(input()) for _ in range(n)] # 배열 입력 받기.
 
-func = lambda a, b: a + b # 최댓값시 max(a, b)
-seg = SegmentTree(li, 기본 값 (덧셈시 0, 최댓값시: -inf, 최솟값시: inf, func = func)
+func = lambda a, b: a + b # 최댓값 구하는 경우 max(a, b)
+seg = SegmentTree(lst, 기본 값 (덧셈시 0, 최댓값시: -inf, 최솟값시: inf, func = func)
 
-seg.query(구간 시작, 구간 끝)
+# seg.query(구간 시작, 구간 끝)
                   
