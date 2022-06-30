@@ -68,3 +68,6 @@ seg = SegmentTree(lst, 기본 값 (덧셈시 0, 최댓값시: -inf, 최솟값시
 
 # seg.query(구간 시작, 구간 끝)
                   
+# 사용 예시
+# b번째 숫자를 c로 바꾸기 : seg[b] = c
+# b부터 c까지의 연산 : seg.query(b, c)
